@@ -1,0 +1,84 @@
+package com.example.carritoscompartidos
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import com.example.carritoscompartidos.ui.theme.CarritosCompartidosTheme
+
+class CreateTripActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            CarritosCompartidosTheme {
+                CreateTripForm()
+            }
+        }
+    }
+}
+
+@Composable
+fun CreateTripForm() {
+    var departurePoint by remember { mutableStateOf("") }
+    var destinationPoint by remember { mutableStateOf("") }
+    var departureTime by remember { mutableStateOf("") }
+    var seatsAvailable by remember { mutableStateOf("") }
+    var tripDetails by remember { mutableStateOf("") }
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Crear un Viaje", style = MaterialTheme.typography.headlineMedium)
+
+        OutlinedTextField(
+            value = departurePoint,
+            onValueChange = { departurePoint = it },
+            label = { Text("Punto de Partida") },
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = destinationPoint,
+            onValueChange = { destinationPoint = it },
+            label = { Text("Punto de Destino") },
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = departureTime,
+            onValueChange = { departureTime = it },
+            label = { Text("Hora de Salida") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = seatsAvailable,
+            onValueChange = { seatsAvailable = it },
+            label = { Text("Asientos Disponibles") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = tripDetails,
+            onValueChange = { tripDetails = it },
+            label = { Text("Detalles del Viaje") },
+            modifier = Modifier.padding(vertical = 8.dp)
+        )
+
+        Button(onClick = {
+            // Aquí puedes manejar la lógica de guardar el viaje
+            println("Viaje creado: $departurePoint a $destinationPoint a las $departureTime con $seatsAvailable asientos disponibles")
+        }, modifier = Modifier.padding(vertical = 8.dp)) {
+            Text("Publicar Viaje")
+        }
+    }
+}
